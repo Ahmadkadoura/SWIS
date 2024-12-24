@@ -18,7 +18,7 @@ return new class extends Migration
             $table->geometry('location')->nullable();
             $table->foreignIdFor(Branch::class)->onDelete('cascade');
             $table->integer('capacity');
-            $table->bigInteger('parent_id')->nullable()->onDelete('cascade');
+            $table->bigInteger('parent_id')->default(0)->onDelete('cascade');
             $table->foreignId('user_id')->constrained();
             $table->boolean('is_Distribution_point');
             $table->timestamps();
