@@ -50,10 +50,10 @@ For more details, refer to the [Laravel Official Documentation](https://laravel.
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/Ahmadkadoura/Swis-Project.git
+   git clone https://github.com/Ahmadkadoura/SWIS 
 Switch to the repo folder
 
-    cd Swis-Project
+    cd SWIS
 
 Install all the dependencies using composer
 
@@ -79,8 +79,8 @@ Start the local development server
 You can now access the server at http://localhost:8000
 **TL;DR command list**
 
-    git clone https://github.com/Ahmadkadoura/Swis-Project.git
-    cd Swis-Project
+    git clone https://github.com/Ahmadkadoura/SWIS
+    cd SWIS
     composer install
     cp .env.example .env
     php artisan key:generate
