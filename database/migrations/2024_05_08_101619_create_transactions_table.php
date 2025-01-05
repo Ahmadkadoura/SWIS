@@ -22,7 +22,7 @@ return new class extends Migration
                 $table->boolean('is_convoy');
                 $table->json('notes')->nullable();
                 $table->string('code')->nullable();
-                $table->foreignId('parent_id')->default(0)->constrained('transactions');
+                $table->foreignId('parent_id')->nullable()->constrained('transactions');
                 $table->string('status');
                 $table->date('date');
                 $table->string('transaction_type');

@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('warehouse_items', function (Blueprint $table) {
+        Schema::create('periodic_balances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
-            $table->foreignId('item_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity');
-//            $table->unique(['item_id','warehouse_id']);
+            $table->foreignIdFor(Item::class);
+            $table->foreignIdFor(Warehouse::class);
+            $table->date('balance_date');
+            $table->integer('balance');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('warehouse_items');
+        Schema::dropIfExists('periodic_balances');
     }
 };

@@ -21,10 +21,7 @@ class WarehouseFactory extends Factory
     {
         $fakerArabic = \Faker\Factory::create('ar_SA');
 
-        $parentId = $this->faker->numberBetween(0, 10);
-        if ($parentId === 0) {
-            $parentId = null;
-        }
+
 
 
         return [
@@ -36,7 +33,7 @@ class WarehouseFactory extends Factory
             'code' => $this->faker->unique()->word,
             'branch_id' => Branch::inRandomOrder()->first()->id,
             'capacity' => $this->faker->numberBetween(100, 1000),
-            'parent_id' => $parentId,
+            'parent_id' => $this->faker->numberBetween(0, 10),
             'user_id' => User::inRandomOrder()->first()->id,
             'location' => new Point($this->faker->longitude, $this->faker->latitude),
             'is_Distribution_point' => $this->faker->boolean(),

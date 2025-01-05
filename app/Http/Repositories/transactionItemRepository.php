@@ -28,12 +28,22 @@ class transactionItemRepository extends baseRepository
         return ['message' => $message, "TransactionWarehouseItem" => $data];
     }
 
-    public function inventory($data)
+    public function inventory(array $data)
     {
         $warehouseId = $data['warehouse_id'];
         $startDate = $data['start_date'];
         $endDate = $data['end_date'];
-        // Fetch inventory details based on transaction type and polymorphic relations
+
+        // Fetch opening balances from periodic_balances
+        $openingBalances = DB::table('periodic_balances')
+            ->select('item_id', DB::raw('SUM(balance) as opening_balance'))
+            ->where('warehouse_id', $warehouseId)
+            ->where('balance_date', '<', $startDate)
+            ->groupBy('item_id')
+            ->get()
+            ->keyBy('item_id');
+
+        // Fetch inventory details based on transaction type
         $inventory = TransactionItem::select(
             'transaction_items.item_id',
             DB::raw('SUM(CASE WHEN transactions.transaction_type = ' . transactionType::transactionIn->value . ' THEN transaction_items.quantity ELSE 0 END) as total_quantity_in'),
@@ -54,33 +64,33 @@ class transactionItemRepository extends baseRepository
             })
             ->whereBetween('transactions.created_at', [$startDate, $endDate])
             ->groupBy('transaction_items.item_id')
-            ->with('item')
-            ->get();
+            ->get()
+            ->keyBy('item_id');
 
-        if ($inventory->isEmpty()) {
-            return collect([]);
-        }
-
-        // Fetch quantities directly from WarehouseItem for the specified warehouse
+        // Fetch quantities directly from WarehouseItem
         $warehouseItems = WarehouseItem::select('item_id', 'quantity')
             ->where('warehouse_id', $warehouseId)
             ->get()
             ->keyBy('item_id');
 
-        // Merge the inventory data with available quantities
-        $mergedInventory = $inventory->map(function ($item) use ($warehouseItems) {
-            $itemQuantityInWarehouse = $warehouseItems->has($item->item_id) ? $warehouseItems[$item->item_id]->quantity : 0;
+        // Merge data
+        $mergedInventory = $inventory->map(function ($item) use ($openingBalances, $warehouseItems) {
+            $openingBalance = $openingBalances->get($item->item_id)?->opening_balance ?? 0;
+            $itemQuantityInWarehouse = $warehouseItems->get($item->item_id)?->quantity ?? 0;
+
             return [
                 'item_id' => $item->item_id,
-                'item_name' => $item->item->name,
-                'total_quantity_in' => (string)$item->total_quantity_in,
-                'total_quantity_out' => (string)$item->total_quantity_out,
-                'quantity_in_warehouse' => (string)$itemQuantityInWarehouse,
+                'total_quantity_in' => (int) $item->total_quantity_in,
+                'total_quantity_out' => (int) $item->total_quantity_out,
+                'opening_balance' => (int) $openingBalance,
+                'quantity_in_warehouse' => (int) $itemQuantityInWarehouse,
+                'final_balance' => (int) ($openingBalance + $item->total_quantity_in - $item->total_quantity_out),
             ];
         });
 
-        return $mergedInventory;
+        return $mergedInventory->isEmpty() ? collect([]) : $mergedInventory;
     }
+
 
     public function systemInventory($data)
     {
@@ -111,7 +121,7 @@ class transactionItemRepository extends baseRepository
                             ->where('transactions.transaction_type', transactionType::transactionIn->value);
                     });
             })
-            ->whereBetween('transactions.created_at', [$startDate, $endDate])
+            ->whereBetween('transactions.date', [$startDate, $endDate])
             ->groupBy('transaction_items.item_id')
             ->with('item')
             ->get();
@@ -121,7 +131,7 @@ class transactionItemRepository extends baseRepository
         }
 
         // Get the overall quantity of items from WarehouseItem across all warehouses
-        $warehouseItems = WarehouseItem::select('item_id', DB::raw('SUM(quantity) as total_quantity_in_warehouse'))
+        $warehouseItems = WarehouseItem::whereIn('warehouse_id', $nonDistributionWarehouseIds)->select('item_id', DB::raw('SUM(quantity) as total_quantity_in_warehouse'))
             ->groupBy('item_id')
             ->get()
             ->keyBy('item_id');

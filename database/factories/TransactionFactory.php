@@ -45,6 +45,8 @@ class TransactionFactory extends Factory
             'waybill_num' => $this->faker->numberBetween(1000, 9999),
             'waybill_img' => $this->faker->imageUrl(),
             'qr_code' => null,
+//            'parent_id' => $this->faker->optional()->randomElement(Transaction::pluck('id')->toArray()),
+
 
             // Polymorphic relations
             'sourceable_type' => $sourceable::class,

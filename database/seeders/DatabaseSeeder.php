@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call([TransactionItemsSeeder::class]);
         $this->call([DonorItemSeeder::class]);
         $this->call([CtnSeeder::class]);
+        $this->call([PeriodicBalanceSeeder::class]);
 
 
 

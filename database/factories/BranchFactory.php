@@ -18,10 +18,7 @@ class BranchFactory extends Factory
     {
         $fakerArabic = \Faker\Factory::create('ar_SA');
 
-            $parentId = $this->faker->numberBetween(0, 10);
-        if ($parentId === 0) {
-            $parentId = null;
-        }
+
 
         return [
             'name' => [
@@ -29,7 +26,7 @@ class BranchFactory extends Factory
                 'ar' => $fakerArabic->company(),
             ],
             'code' => $this->faker->unique()->word,
-            'parent_id' => $parentId,
+            'parent_id' =>  $this->faker->numberBetween(0, 10),
             'phone' => $this->faker->unique()->phoneNumber,
             'address' => [
                 'en' => fake()->address(),

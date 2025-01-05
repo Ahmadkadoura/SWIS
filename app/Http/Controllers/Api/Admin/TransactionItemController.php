@@ -86,20 +86,17 @@ class TransactionItemController extends Controller
     }
     public function inventoryForWarehouse(Request $request): JsonResponse
     {
-        $request->validate([
-            'warehouse_id' => 'required|integer',
+        $validated = $request->validate([
+            'warehouse_id' => 'required|integer|exists:warehouses,id',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
+            'end_date' => 'required|date|after_or_equal:start_date',
         ]);
-        $data = [
-            'warehouse_id' => $request->input('warehouse_id'),
-            'start_date' => $request->input('start_date'),
-            'end_date' => $request->input('end_date')
-        ];
-        $inventory=$this->transactionItemRepository->inventory($data);
+
+        $inventory = $this->transactionItemRepository->inventory($validated);
 
         return $this->showOneCollection($inventory, InventoryResource::class);
     }
+
 
     public function systemInventory(Request $request): JsonResponse
     {
