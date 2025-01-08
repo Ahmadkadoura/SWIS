@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpFoundation\Response;
 
 class Localization
@@ -18,10 +17,19 @@ class Localization
     public function handle(Request $request, Closure $next): Response
     {
         $lang = $request->header('accept-language');
+
         if ($lang != null) {
-            session()->put('local',$lang);
-            App::setLocale($lang);
+            // استخراج اللغة الأساسية فقط (مثل en أو en_US)
+            $lang = explode(',', $lang)[0]; // أخذ الجزء الأول فقط قبل الفاصلة
+            $lang = explode(';', $lang)[0]; // إزالة أي عوامل q-factor
+
+            // التحقق من صحة اللغة
+            if (preg_match('/^[a-z]{2}(-[A-Z]{2})?$/', $lang)) {
+                session()->put('local', $lang);
+                App::setLocale($lang);
+            }
         }
+
         return $next($request);
     }
 }
