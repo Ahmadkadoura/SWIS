@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Storage;
 
 class QRCodeService
 {
-    private transactionRepository $transactionRepository;
 
     public function generateQRCode($transaction)
     {
