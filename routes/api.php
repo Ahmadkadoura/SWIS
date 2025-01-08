@@ -121,7 +121,7 @@ Route::middleware(['auth:sanctum', 'Localization'])->group(function () {
     Route::get('indexTransactionForKeeper', [KeeperTransactionController::class, 'index']);
     Route::get('showTransactionForKeeper/{transaction_id}', [KeeperTransactionController::class, 'show']);
     Route::post('createKeeperTransaction', [KeeperTransactionController::class, 'store']);
-    Route::get('keeper/files', [\App\Http\Controllers\Api\Keepe\FileController::class, 'index']);
+    Route::get('keeper/files', [\App\Http\Controllers\Api\Keeper\FileController::class, 'index']);
 
 
     // Donor Routes
