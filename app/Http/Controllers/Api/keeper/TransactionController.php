@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\keeper;
+namespace App\Http\Controllers\Api\Keeper;
 
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\transactionRepository;
