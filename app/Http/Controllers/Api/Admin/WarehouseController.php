@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Exports\WarehouseExport;
 use App\Exports\WarehousesExport;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\warehouseRepository;
