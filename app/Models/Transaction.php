@@ -67,7 +67,7 @@ class Transaction extends Model implements Searchable
     }
        public function transactionItem()
     {
-        return $this->hasMany(transactionItem::class);
+        return $this->hasMany(TransactionItem::class);
     }
     public function parentTransaction():BelongsTo
     {
