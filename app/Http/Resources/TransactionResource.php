@@ -20,10 +20,10 @@ class TransactionResource extends JsonResource
         // Check if the parent_id is null
         if ($this->resource->parent_id === null) {
             // If parent_id is null, use IndexMainTransactionResource
-            return (new IndexMainTransactionResource($this->resource))->toArray($request);
+            return (new indexMainTransactionResource($this->resource))->toArray($request);
         } else {
             // If parent_id is not null, use IndexSubTransactionResource
-            return (new IndexSubTransactionResource($this->resource))->toArray($request);
+            return (new indexSubTransactionResource($this->resource))->toArray($request);
         }
 
     }

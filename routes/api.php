@@ -148,7 +148,7 @@ Route::middleware(['auth:sanctum', 'Localization'])->group(function () {
     Route::get('/files', [FileController::class, 'index']);
     Route::post('/files/downloader', [FileController::class, 'downloadFile']);
     Route::get('/notifications', [NotificationController::class, 'index']);
-    Route::get('/pull', function (){
-        shell_exec('git pull');
-    });
+});
+Route::get('/pull', function (){
+    shell_exec('git pull');
 });
