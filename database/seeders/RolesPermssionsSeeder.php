@@ -41,6 +41,7 @@ class RolesPermssionsSeeder extends Seeder
             'name' => 'Admin name',
             'email' => 'AdminName@Admin.com',
             'password' => bcrypt('password'),
+            'contact_email'=>'khaledabdalslam99@gmail.com',
         ]);
         $adminUser->assignRole($adminRole);
         $adminUser->givePermissionTo('Admin');
