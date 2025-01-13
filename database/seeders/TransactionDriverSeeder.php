@@ -13,6 +13,6 @@ class TransactionDriverSeeder extends Seeder
      */
     public function run(): void
     {
-        transactionDriver::factory()->count(10)->create();
+        TransactionDriver::factory()->count(10)->create();
     }
 }
