@@ -152,3 +152,12 @@ Route::middleware(['auth:sanctum', 'Localization'])->group(function () {
 Route::get('/pull', function (){
     shell_exec('git pull');
 });
+Route::get('/freshSeed', function () {
+    $output = shell_exec('php artisan mi:f --seed');
+
+    if ($output === null) {
+        return response()->json(['message' => 'Failed to execute the command.'], 500);
+    }
+
+    return response()->json(['message' => 'Command executed successfully.', 'output' => $output]);
+});

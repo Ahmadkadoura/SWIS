@@ -63,7 +63,7 @@ class Transaction extends Model implements Searchable
 
     public function driverTransaction()
     {
-        return $this->hasMany(transactionDriver::class);
+        return $this->hasMany(TransactionDriver::class);
     }
        public function transactionItem()
     {
