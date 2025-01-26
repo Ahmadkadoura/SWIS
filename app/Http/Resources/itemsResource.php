@@ -24,7 +24,7 @@ class itemsResource extends JsonResource
             'unitType' =>  __($this->unitType->name ),
             'size' => $this->size,
             'weight' => $this->weight,
-            'quantity in the system' => $this->quantity,
+            'quantity_in_the_system' => $this->quantity,
             'status'=>__($this->statusType->name),
         ];
     }

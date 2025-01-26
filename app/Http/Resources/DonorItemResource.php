@@ -23,7 +23,7 @@ class DonorItemResource extends JsonResource
                 'id'=>$this->branch->id,
                 'name'=>$this->branch->name,
             ],
-            'quantity for the  donor' => $this->quantity,
+            'quantity_for_the_donor' => $this->quantity,
         ];
     }
 }
