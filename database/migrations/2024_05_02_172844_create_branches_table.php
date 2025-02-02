@@ -16,7 +16,6 @@ return new class extends Migration
             $table->json('name');
             $table->string('code')->nullable();
             $table->integer('parent_id')->default(0)->onDelete('cascade');
-            $table->string('phone')->unique();
             $table->json('address');
             $table->timestamps();
             $table->softDeletes();

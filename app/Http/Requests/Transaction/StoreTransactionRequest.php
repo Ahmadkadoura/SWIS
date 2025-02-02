@@ -52,8 +52,8 @@ class StoreTransactionRequest extends FormRequest
             // Driver information
             'drivers' => 'required|array',
             'drivers.*.name' => 'required|string|max:255',
-            'drivers.*.vehicle_number' => 'required|string|max:255|unique:drivers,vehicle_number',
-            'drivers.*.national_id' => 'required|string|max:255|unique:drivers,national_id',
+            'drivers.*.vehicle_number' => 'required|string|max:255|',
+            'drivers.*.national_id' => 'required|string|max:255|',
             'drivers.*.phone' => 'nullable|string|max:20',
             'drivers.*.transportation_comp' => 'nullable|string|max:255',
 

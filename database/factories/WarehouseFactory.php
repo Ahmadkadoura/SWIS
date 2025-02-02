@@ -34,7 +34,7 @@ class WarehouseFactory extends Factory
             'branch_id' => Branch::inRandomOrder()->first()->id,
             'capacity' => $this->faker->numberBetween(100, 1000),
             'parent_id' => $this->faker->numberBetween(0, 10),
-            'user_id' => User::inRandomOrder()->first()->id,
+            'user_id' => User::where('id', '!=', 1)->where('id', '!=', 3)->inRandomOrder()->first()->id,
             'location' => new Point($this->faker->longitude, $this->faker->latitude),
             'is_Distribution_point' => $this->faker->boolean(),
         ];

@@ -55,31 +55,31 @@ class itemRepository extends baseRepository
             })
             ->whereNull('deleted_at')->with('warehouseItem.item')->get();
         // Define filters
-//        $filters = [
-//            AllowedFilter::exact('unit', 'warehouseItem.item.unitType'),
-//            AllowedFilter::partial('name', 'warehouseItem.item.name'),
-//            AllowedFilter::partial('code', 'warehouseItem.item.code'),
-//            AllowedFilter::scope('size', 'warehouseItem.item.size'),
-//            AllowedFilter::scope('weight', 'warehouseItem.item.weight'),
-//            AllowedFilter::scope('quantity', 'warehouseItem.item.quantity'),
-//        ];
-//
-//        // Define sorting options
-//        $sorts = [
-//            AllowedSort::field('name'),
-//            AllowedSort::field('code'),
-//            AllowedSort::field('sector'),
-//            AllowedSort::field('unit'),
-//            AllowedSort::field('size'),
-//            AllowedSort::field('weight'),
-//            AllowedSort::field('quantity'),
-//            AllowedSort::field('created_at'),
-//            AllowedSort::field('updated_at'),
-//        ];
+       $filters = [
+           AllowedFilter::exact('unit', 'warehouseItem.item.unitType'),
+           AllowedFilter::partial('name', 'warehouseItem.item.name'),
+           AllowedFilter::partial('code', 'warehouseItem.item.code'),
+           AllowedFilter::scope('size', 'warehouseItem.item.size'),
+           AllowedFilter::scope('weight', 'warehouseItem.item.weight'),
+           AllowedFilter::scope('quantity', 'warehouseItem.item.quantity'),
+       ];
+
+       // Define sorting options
+       $sorts = [
+           AllowedSort::field('name'),
+           AllowedSort::field('code'),
+           AllowedSort::field('sector'),
+           AllowedSort::field('unit'),
+           AllowedSort::field('size'),
+           AllowedSort::field('weight'),
+           AllowedSort::field('quantity'),
+           AllowedSort::field('created_at'),
+           AllowedSort::field('updated_at'),
+       ];
 
         // Apply filters and sorts
-//        return $this->filter($query, $filters, $sorts);
-return $query;
+       return $this->filter($query, $filters, $sorts);
+// return $query;
     }
     public function showItemForKeeper($item_id,$warehouse_id){
 

@@ -22,7 +22,6 @@ class BranchResource extends JsonResource
                 'id' =>$this->parent_id,
                 'name' =>$this->parentBranch->name ?? null,
             ],
-            'phone'     => $this->phone,
             'address'   => $this->address,
         ];
     }

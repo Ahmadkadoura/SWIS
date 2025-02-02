@@ -19,7 +19,6 @@ class Branch extends Model implements Searchable
         'name',
         'code',
         'parent_id',
-        'phone',
         'address',
     ];
 

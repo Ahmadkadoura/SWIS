@@ -27,7 +27,6 @@ class BranchFactory extends Factory
             ],
             'code' => $this->faker->unique()->word,
             'parent_id' =>  $this->faker->numberBetween(0, 10),
-            'phone' => $this->faker->unique()->phoneNumber,
             'address' => [
                 'en' => fake()->address(),
                 'ar' => $fakerArabic->address(),

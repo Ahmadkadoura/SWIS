@@ -86,7 +86,8 @@ class transactionRepository extends baseRepository
 
     private function createTransactionItems(Transaction $transaction, array $dataItem): void
     {
-        if ($dataItem['sourceable_type'] === sourceType::keeper->value) {
+        if ($dataItem['sourceable_type'] === sourceType::keeper->value &&
+         $dataItem['transaction_type']===transactionType::transactionOut->value) {
             $warehouse = Warehouse::find($dataItem['sourceable_id']);
             foreach ($dataItem['items'] as $itemData) {
                 $this->createWarehouseItemTransaction($warehouse, $transaction, $itemData);
@@ -412,7 +413,7 @@ class transactionRepository extends baseRepository
         $data = Transaction::where('id', $transaction_id)
             ->with([
                 'childTransactions.destinationable',
-                'transactionWarehouseItem.item',
+                'transactionItem.item',
                 'destinationable'
             ])
             ->first();

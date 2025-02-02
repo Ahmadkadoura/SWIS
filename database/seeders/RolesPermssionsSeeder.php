@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\userType;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -42,6 +43,7 @@ class RolesPermssionsSeeder extends Seeder
             'email' => 'AdminName@Admin.com',
             'password' => bcrypt('password'),
             'contact_email'=>'khaledabdalslam99@gmail.com',
+            'type'=>userType::admin->value,
         ]);
         $adminUser->assignRole($adminRole);
         $adminUser->givePermissionTo('Admin');
@@ -51,6 +53,8 @@ class RolesPermssionsSeeder extends Seeder
             'name' => 'Keeper name',
             'email' => 'KeeperName@Keeper.com',
             'password' => bcrypt('password'),
+            'type'=>userType::keeper->value,
+
         ]);
         $keeperUser->assignRole($keeperRole);
         $keeperUser->givePermissionTo('Keeper');
@@ -60,6 +64,8 @@ class RolesPermssionsSeeder extends Seeder
             'name' => 'donor name',
             'email' => 'DonorName@Donor.com',
             'password' => bcrypt('password'),
+            'type'=>userType::donor->value,
+
         ]);
         $donorUser->assignRole($donorRole);
         $donorUser->givePermissionTo('Donor');
