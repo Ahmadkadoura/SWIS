@@ -30,15 +30,16 @@ class ItemController extends Controller
     public function index()
     {
         $data=$this->itemRepository->indexItemForKeeper(Auth::user()->id);
-//        $message = $data->isEmpty() ? __('There are no Item at the moment') : __('Item retrieved successfully');
-//        return $this->showAll($data, indexKeeperItemResource::class, $message);
-        return $data;
+       $message = $data->isEmpty() ? __('There are no Item at the moment') : __('Item retrieved successfully');
+       return $this->showAll($data, indexKeeperItemResource::class, $message);
+        // return $data;
 
     }
     public function show($item_id): JsonResponse
     {        $keeper=Warehouse::where('user_id',Auth::user()->id)->first();
 
         $data=$this->itemRepository->showItemForKeeper($item_id,$keeper->id);
+        // dd($data);
         return $this->showOne($data['WarehouseItem'],showKeeperItemResource::class,__($data['message']));
 
     }

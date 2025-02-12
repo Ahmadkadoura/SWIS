@@ -30,7 +30,7 @@ class storeUserRequests extends FormRequest
             'contact_email' =>['required', 'string', 'email', Rule::unique('users', 'contact_email')],
             'name.en' => ['required', 'string','min:4'],
             'name.ar' => ['string','min:4'],
-            'phone' => ['required',Rule::unique('Users', 'phone'),'phone:sy,INTERNATIONAL'],
+            'phone' => ['required',Rule::unique('users', 'phone'),'phone:sy,INTERNATIONAL'],
 //              'photo' => [ 'required', 'image'],
             'type' => ['required', new Enum(userType::class)],
         ];

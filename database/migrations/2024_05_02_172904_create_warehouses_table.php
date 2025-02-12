@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('capacity');
             $table->integer('rate')->default(0);
             $table->bigInteger('parent_id')->default(0)->onDelete('cascade');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained('users');
             $table->boolean('is_Distribution_point');
             $table->timestamps();
             $table->softDeletes();

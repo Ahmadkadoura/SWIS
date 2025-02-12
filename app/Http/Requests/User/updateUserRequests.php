@@ -30,7 +30,7 @@ class updateUserRequests extends FormRequest
             'contact_email' => [ 'string','email',Rule::unique('users', 'contact_email')],
             'name.en' => [ 'string','min:4'],
             'name.ar' => [ 'string','min:4'],
-            'phone' => [ 'string',Rule::unique('Users', 'phone'),'phone:sy,INTERNATIONAL'],
+            'phone' => [ 'string',Rule::unique('users', 'phone'),'phone:sy,INTERNATIONAL'],
             'photo' => [ 'image'],
             'type' => [ new Enum(userType::class)],
 

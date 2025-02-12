@@ -28,7 +28,10 @@ class User extends Authenticatable implements Searchable
      *
      * @var array<int, string>
      */
+    protected $table = 'users'; // Specify the correct table name
+
     public $translatable = ['name'];
+
     protected $fillable = [
         'name',
         'email',

@@ -53,7 +53,7 @@ class itemRepository extends baseRepository
                             ->whereNull('deleted_at');
                     });
             })
-            ->whereNull('deleted_at')->with('warehouseItem.item')->get();
+            ->whereNull('deleted_at')->with('warehouseItem.item');
         // Define filters
        $filters = [
            AllowedFilter::exact('unit', 'warehouseItem.item.unitType'),
