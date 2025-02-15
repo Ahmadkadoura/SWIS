@@ -37,7 +37,7 @@ class warehouseRepository extends baseRepository
             AllowedSort::field('updated_at'),
         ];
 
-        return $this->filter(Warehouse::with('user', 'branch', 'parentW rehouse'), $filters, $sorts);
+        return $this->filter(Warehouse::with('user', 'branch', 'parentWarehouse'), $filters, $sorts);
     }
 
     public function showWarehouseForKeeper($keeper){
